@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<HashMap<String,Object>> items = new ArrayList<HashMap<String,Object>>();
         final PackageManager pm = getPackageManager();
 
-        List<PackageInfo> packs = pm.getInstalledPackages(1);
+        List<PackageInfo> packs = pm.getInstalledPackages(0);
 
         for (PackageInfo pi : packs)
         {
@@ -119,6 +119,24 @@ public class MainActivity extends AppCompatActivity {
     public void tampilBluetooth(View view){
         Intent bluetoothIntent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
         startActivity(bluetoothIntent);
+    }
+
+    public void tampilDrive(View view) {
+        try
+        {
+            Intent googleDriveIntent = new Intent(Intent.ACTION_MAIN);
+            googleDriveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+            ComponentName cn = new ComponentName("com.google.android.apps.docs", "com.google.android.apps.docs.app.NewMainProxyActivity");
+            googleDriveIntent.setComponent(cn);
+
+            startActivity(googleDriveIntent);
+        }
+        catch (ActivityNotFoundException anfe)
+        {
+            Toast.makeText(getApplicationContext(), "Aplikasi Tidak Ditemukan", Toast.LENGTH_SHORT).show();
+        }
+    }
     }
 
 }
